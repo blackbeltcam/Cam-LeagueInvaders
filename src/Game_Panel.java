@@ -1,15 +1,20 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Game_Panel extends JPanel implements ActionListener, KeyListener {
+	Font titleFont;
+	Font subtitleFont;
+	RocketShip rs=new RocketShip(250, 700, 50, 50);
 	Timer timer;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -29,7 +34,8 @@ public class Game_Panel extends JPanel implements ActionListener, KeyListener {
 	        }
 	public Game_Panel() {
 		timer = new Timer(1000 / 60, this);
-		
+		titleFont=new Font("Comic Sans", Font.PLAIN, 48);
+		subtitleFont=new Font("Arial", Font.ROMAN_BASELINE, 20);
 	}
 
 	public void startGame() {
@@ -39,7 +45,7 @@ public class Game_Panel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 	public void updateGameState() {
-		
+		rs.update();
 	}
 	public void updateEndState() {
 		
@@ -48,14 +54,28 @@ public class Game_Panel extends JPanel implements ActionListener, KeyListener {
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT); 
+		g.setFont(titleFont);
+		g.setColor(new Color(170, 17, 255));
+		g.drawString("Welcome To", 90, 100);
+		g.drawString("League Invaders!", 50, 200);
+		g.setFont(subtitleFont);
+		g.drawString("Press ENTER to Begin", 150, 400);
+		g.drawString("Press SPACE for Instructions", 120, 550);
 	}
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.WIDTH);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		rs.draw(g);
 	}
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.WIDTH);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.setColor(Color.BLACK);
+		g.setFont(titleFont);
+		g.drawString("GAME OVER", 110, 100);
+		g.setFont(subtitleFont);
+		g.drawString("You Killed 0 Alies", 170, 350);
+		g.drawString("Press ENTER to Restart", 140, 410);
 	}
 	
 
@@ -82,16 +102,22 @@ public class Game_Panel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("food");
+		
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("i");
+	if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+		currentState++;
+		currentState=currentState%3;
+	}
+	else if (e.getKeyCode()==KeyEvent.VK_SPACE) {
+		JOptionPane.showMessageDialog(this, "Use ARROW KEYS to move and SPACE to shoot");
+	}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("want");
+		
 	}
 }
