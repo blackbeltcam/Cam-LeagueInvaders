@@ -15,6 +15,7 @@ public class Game_Panel extends JPanel implements ActionListener, KeyListener {
 	Font titleFont;
 	Font subtitleFont;
 	RocketShip rs=new RocketShip(250, 700, 50, 50);
+	ObjectManager om=new ObjectManager(rs);
 	Timer timer;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -45,7 +46,7 @@ public class Game_Panel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 	public void updateGameState() {
-		rs.update();
+		om.update();
 	}
 	public void updateEndState() {
 		
@@ -65,7 +66,7 @@ public class Game_Panel extends JPanel implements ActionListener, KeyListener {
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
-		rs.draw(g);
+		om.draw(g);
 	}
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
@@ -113,6 +114,19 @@ public class Game_Panel extends JPanel implements ActionListener, KeyListener {
 	}
 	else if (e.getKeyCode()==KeyEvent.VK_SPACE) {
 		JOptionPane.showMessageDialog(this, "Use ARROW KEYS to move and SPACE to shoot");
+	}
+	
+	if (e.getKeyCode()==KeyEvent.VK_UP) {
+		 rs.y -= rs.speed;
+	}
+	else if (e.getKeyCode()==KeyEvent.VK_DOWN) {
+		rs.y += rs.speed;
+	}
+	else if (e.getKeyCode()==KeyEvent.VK_LEFT) {
+		rs.x -= rs.speed;
+	}
+	else if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
+		rs.x += rs.speed;
 	}
 	}
 	@Override
