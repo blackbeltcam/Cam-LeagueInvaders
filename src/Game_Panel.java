@@ -113,8 +113,14 @@ public class Game_Panel extends JPanel implements ActionListener, KeyListener {
 		currentState=currentState%3;
 	}
 	else if (e.getKeyCode()==KeyEvent.VK_SPACE) {
-		JOptionPane.showMessageDialog(this, "Use ARROW KEYS to move and SPACE to shoot");
+		if (currentState==MENU_STATE) {
+			JOptionPane.showMessageDialog(this, "Use ARROW KEYS to move and SPACE to shoot");
+		}
+		if (currentState==GAME_STATE) {
+			om.addProjectile(new Projectile(rs.x+21, rs.y, 10, 10));
+		}
 	}
+	
 	
 	if (e.getKeyCode()==KeyEvent.VK_UP) {
 		 rs.y -= rs.speed;
