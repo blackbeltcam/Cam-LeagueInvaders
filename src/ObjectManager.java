@@ -22,7 +22,7 @@ public class ObjectManager {
 		for(Projectile d: projectile) {
 			d.draw(g);
 		}
-		for(Alien d: projectile) {
+		for(Alien d: alien) {
 			d.draw(g);
 		}
 		rs.draw(g);
