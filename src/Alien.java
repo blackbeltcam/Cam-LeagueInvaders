@@ -8,8 +8,8 @@ public class Alien extends GameObject {
 		super(x, y ,width, height);
 	}
 	public void update() {
+		super.update();
 		y++;
-		
 	}
 	
 	public void draw(Graphics g) {
@@ -18,4 +18,4 @@ public class Alien extends GameObject {
 	}
 	
 }
-}
+

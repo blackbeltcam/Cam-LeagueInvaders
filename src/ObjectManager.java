@@ -41,11 +41,36 @@ enemyTimer = System.currentTimeMillis();
         }
 }
 	private void purgeObjects() {
-		for(int i=0; projectile.get(i);i++) {
-			
+		for(int i=0; i<projectile.size() ;i++) {
+			if(!projectile.get(i).isAlive) {
+			projectile.remove(i);
+			}
+		}
+		for(int y=0; y<alien.size(); y++) {
+			if(!projectile.get(y).isAlive) {
+				alien.remove(y);
+			}
 		}
 	}
 	public void addAlien(Alien al) {
 		alien.add(al);
 }
+	public void checkCollision() {
+		for(Alien a : alien){
+	        if(rs.collisionBox.intersects(a.collisionBox)){
+	                rs.isAlive = false;
+	        }
+	}
+		for(Projectile p : projectile){
+
+	        if(alien.collisionBox.intersects(p.collisionBox)){
+
+	                pr.isAlive = false;
+
+	        }
+
+	}
+
+
+	}
 }
