@@ -4,73 +4,89 @@ import java.util.Random;
 
 public class ObjectManager {
 	RocketShip rs;
-	ArrayList<Projectile>projectile=new ArrayList<Projectile>();
-	ArrayList<Alien>alien=new ArrayList<Alien>();
+	ArrayList<Projectile> projectile = new ArrayList<Projectile>();
+	ArrayList<Alien> alien = new ArrayList<Alien>();
 	long enemyTimer = 0;
-	int enemySpawnTime = 1000;		
+	int enemySpawnTime = 1000;
+
 	public ObjectManager(RocketShip rs) {
-		this.rs=rs;
-		
+		this.rs = rs;
+
 	}
+
 	public void update() {
-		for(Projectile u: projectile) {
+		for (Projectile u : projectile) {
 			u.update();
 		}
-		for(Alien u: alien) {
+		for (Alien u : alien) {
 			u.update();
 		}
 		rs.update();
 	}
+
 	public void draw(Graphics g) {
-		for(Projectile d: projectile) {
+		for (Projectile d : projectile) {
 			d.draw(g);
 		}
-		for(Alien d: alien) {
+		for (Alien d : alien) {
 			d.draw(g);
 		}
 		rs.draw(g);
 	}
+
 	public void addProjectile(Projectile pr) {
 		projectile.add(pr);
 	}
-	public void manageEnemies(){
-        if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
-                addAlien(new Alien(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
+	
+	public void addRocket(RocketShip rs) {
+		this.rs=rs;
+	}
 
-enemyTimer = System.currentTimeMillis();
-        }
-}
-	private void purgeObjects() {
-		for(int i=0; i<projectile.size() ;i++) {
-			if(!projectile.get(i).isAlive) {
-			projectile.remove(i);
+	public void manageEnemies() {
+		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
+			addAlien(new Alien(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
+
+			enemyTimer = System.currentTimeMillis();
+		}
+	}
+	public void reset() {
+		projectile.clear();
+		alien.clear();
+	}
+
+	public void purgeObjects() {
+		for (int i = 0; i < projectile.size(); i++) {
+			if (!projectile.get(i).isAlive) {
+				projectile.remove(i);
 			}
 		}
-		for(int y=0; y<alien.size(); y++) {
-			if(!projectile.get(y).isAlive) {
+		for (int y = 0; y < alien.size(); y++) {
+			if (!alien.get(y).isAlive) {
 				alien.remove(y);
 			}
 		}
 	}
+
 	public void addAlien(Alien al) {
 		alien.add(al);
-}
+	}
+
 	public void checkCollision() {
-		for(Alien a : alien){
-	        if(rs.collisionBox.intersects(a.collisionBox)){
-	                rs.isAlive = false;
-	        }
-	}
-		for(Projectile p : projectile){
+		for (Alien a : alien) {
+			if (rs.collisionBox.intersects(a.collisionBox)) {
+				rs.isAlive = false;
+			}
 
-	        if(alien.collisionBox.intersects(p.collisionBox)){
+			for (Projectile p : projectile) {
 
-	                pr.isAlive = false;
+				if (a.collisionBox.intersects(p.collisionBox)) {
 
-	        }
+					a.isAlive = false;
+				}
 
-	}
+			}
 
+		}
 
 	}
 }

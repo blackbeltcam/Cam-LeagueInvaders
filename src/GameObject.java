@@ -13,7 +13,7 @@ public GameObject(int x, int y, int width, int height) {
 	this.y=y;
 	this.width=width;
 	this.height=height;
-	Rectangle collisionBox= new Rectangle(x, y, width, height);
+	collisionBox= new Rectangle(x, y, width, height);
 	isAlive=true;
 }
 public void update() {
