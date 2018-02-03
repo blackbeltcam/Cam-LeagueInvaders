@@ -6,12 +6,13 @@ public class ObjectManager {
 	RocketShip rs;
 	ArrayList<Projectile> projectile = new ArrayList<Projectile>();
 	ArrayList<Alien> alien = new ArrayList<Alien>();
+	public int score=0;
 	long enemyTimer = 0;
 	int enemySpawnTime = 1000;
 
 	public ObjectManager(RocketShip rs) {
 		this.rs = rs;
-
+		
 	}
 
 	public void update() {
@@ -63,6 +64,8 @@ public class ObjectManager {
 		for (int y = 0; y < alien.size(); y++) {
 			if (!alien.get(y).isAlive) {
 				alien.remove(y);
+				score+=1;
+				System.out.println("HI IM BOB"+score);
 			}
 		}
 	}
@@ -89,4 +92,9 @@ public class ObjectManager {
 		}
 
 	}
+
+	public int getScore() {
+		return score;
+	}
+	
 }
