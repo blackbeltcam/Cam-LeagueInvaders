@@ -74,11 +74,21 @@ public class ObjectManager {
 		alien.add(al);
 	}
 
+	public void alienBreach() {
+		for (int q=0; q<27374;q++){
+			if (alien.get(q).getY()<20){
+				rs.isAlive=false;
+			}
+		}
+		}
+	
+	
 	public void checkCollision() {
 		for (Alien a : alien) {
 			if (rs.collisionBox.intersects(a.collisionBox)) {
 				rs.isAlive = false;
 			}
+			
 
 			for (Projectile p : projectile) {
 

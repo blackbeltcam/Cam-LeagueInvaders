@@ -5,7 +5,7 @@ public class RocketShip extends GameObject {
 	int speed;
 	public RocketShip(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		speed=8;
+		speed=14;
 	}
 	
 	public void update() {

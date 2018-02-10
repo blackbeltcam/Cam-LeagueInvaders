@@ -22,4 +22,7 @@ public void update() {
 public void draw(Graphics g) {
 	
 }
+public int getY() {
+	return y;
+}
 }
